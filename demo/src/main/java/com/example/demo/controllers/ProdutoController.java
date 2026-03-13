@@ -1,35 +1,35 @@
 package com.example.demo.controllers;
 
-import org.springframework.beans.models.AlunoModel;
-import org.springframework.beans.repositories.AlunoRepository;
-import org.springframework.beans.services.AlunoService;
+import com.example.demo.models.ProdutoModel;
+import com.example.demo.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
+@RequestMapping(path = "/alunos")
 public class ProdutoController {
-    @RestController
-    @RequestMapping(path = "/alunos")
-    public class AlunoController {
 
-        @Autowired
-        private ProdutoService produtoService;
+    @Autowired
+    private ProdutoService produtoService;
 
-        @PostMapping
-        public produtoModel criarProduto(@RequestBody ProdutModel produtoModel) {
-            return produtoService.criarAluno(produtoModel);
-        }
+    @PostMapping
+    public ProdutoModel salvar(@RequestBody ProdutoModel produtoModel) {
+        return produtoService.criarProduto(produtoModel);
+    }
 
-        @GetMapping
-        public List<ProdutoModel> buscarTodosPlunos() {
-            return produtoService.buscarTodosAlunos();
-        }
+    @GetMapping
+    public List<ProdutoModel> buscarTodosProdutos() {
+        return  produtoService.buscarTodosProdutos();
+    }
 
-        @DeleteMapping("/{id}")
-        public void deletarProduto(@PathVariable Long id) {
-            produtoService.deletarAluno(id);
-        }
+    @PutMapping("/{id}")
+    public ProdutoModel atualizarProduto(@PathVariable Long id, @RequestBody ProdutoModel produtoModel) {
+        return produtoService.atualizarproduto(id,produtoModel);
+    }
 
+    @DeleteMapping("/{id}")
+    public void deletarProduto(@PathVariable Long id) {
+        produtoService.deletarProduto(id);
     }
 }
